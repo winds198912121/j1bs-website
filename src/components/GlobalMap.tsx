@@ -1,4 +1,10 @@
 /* 東京本社 × インド・プネ拠点を地図上で示すグローバル体制マップ */
+"use client";
+
+import { useI18n } from "@/lib/i18n";
+
+const FONT_JP = "'Noto Sans JP',Inter,sans-serif";
+const FONT_EN = "Inter,'Noto Sans JP',sans-serif";
 const JAPAN_PATHS = [
   "M 70.0 -18.8 L 68.6 -17.4 68.5 -16.3 70.2 -15.7 70.9 -17.0 72.3 -17.6 73.3 -16.8 74.8 -18.2 74.5 -19.0 72.6 -19.5 71.5 -18.6 70.0 -18.8 Z",
   "M 90.9 -26.0 L 90.9 -28.5 93.3 -30.8 93.4 -32.7 92.0 -35.9 89.2 -35.5 88.1 -34.0 88.5 -31.4 86.9 -28.5 81.6 -25.3 79.9 -26.4 77.2 -22.3 74.4 -22.7 69.2 -22.0 67.3 -20.4 64.7 -19.2 63.3 -17.8 60.9 -17.1 61.9 -15.4 63.6 -14.8 62.9 -12.7 64.2 -11.8 65.9 -12.7 67.6 -16.7 65.0 -18.4 68.0 -18.5 71.1 -19.6 75.6 -20.1 75.7 -18.3 77.5 -17.4 81.2 -20.1 85.7 -20.3 89.1 -21.4 90.4 -23.0 90.0 -24.2 90.9 -26.0 Z",
@@ -16,6 +22,9 @@ const GRATICULE_LON = [274.5, 394.1, 513.7, 633.3];
 const GRATICULE_LAT = [234.8, 288.5, 342.2, 396];
 
 export default function GlobalMap() {
+  const { t, locale } = useI18n();
+  const font = locale === "ja" ? FONT_JP : FONT_EN;
+  const fontEn = locale === "ja" ? "Inter,sans-serif" : "Inter,sans-serif";
   return (
     <svg
       viewBox="0 0 920 600"
@@ -48,17 +57,17 @@ export default function GlobalMap() {
       </g>
 
       {/* sea labels */}
-      <text x="470" y="216" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        日本海
+      <text x="470" y="216" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily={font}>
+        {t.map.sea1}
       </text>
-      <text x="736" y="420" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        太平洋
+      <text x="736" y="420" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily={font}>
+        {t.map.sea2}
       </text>
-      <text x="436" y="414" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        ベンガル湾
+      <text x="436" y="414" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily={font}>
+        {t.map.sea3}
       </text>
-      <text x="132" y="404" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        アラビア海
+      <text x="132" y="404" fontSize="9.5" letterSpacing="2.5" fill="#173A70" opacity="0.35" fontFamily={font}>
+        {t.map.sea4}
       </text>
 
       {/* countries */}
@@ -88,14 +97,14 @@ export default function GlobalMap() {
       </g>
 
       {/* country labels */}
-      <text x="290" y="238" fontSize="13" fontWeight="700" fill="#181A1F" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        インド
+      <text x="290" y="238" fontSize="13" fontWeight="700" fill="#181A1F" fontFamily={font}>
+        {t.map.country1}
       </text>
       <text x="290" y="252" fontSize="8.5" letterSpacing="2.5" fill="#626874" fontFamily="Inter,sans-serif" fontWeight="600">
         INDIA
       </text>
-      <text x="612" y="196" fontSize="13" fontWeight="700" fill="#181A1F" fontFamily="'Noto Sans JP',Inter,sans-serif">
-        日本
+      <text x="612" y="196" fontSize="13" fontWeight="700" fill="#181A1F" fontFamily={font}>
+        {t.map.country2}
       </text>
       <text x="612" y="210" fontSize="8.5" letterSpacing="2.5" fill="#626874" fontFamily="Inter,sans-serif" fontWeight="600">
         JAPAN
@@ -136,8 +145,8 @@ export default function GlobalMap() {
       <g>
         <circle cx="237.8" cy="350.2" r="10" fill="none" stroke="#173A70" className="pulse-ring" />
         <circle cx="237.8" cy="350.2" r="5.5" fill="#173A70" />
-        <text x="225" y="368" textAnchor="end" fontSize="13.5" fontWeight="700" fill="#181A1F" fontFamily="'Noto Sans JP',Inter,sans-serif">
-          プネ拠点
+        <text x="225" y="368" textAnchor="end" fontSize="13.5" fontWeight="700" fill="#181A1F" fontFamily={font}>
+          {t.map.pune}
         </text>
         <text x="225" y="382" textAnchor="end" fontSize="8.5" letterSpacing="1.5" fill="#626874" fontFamily="Inter,sans-serif" fontWeight="600">
           PUNE · 18.52°N 73.85°E
@@ -149,8 +158,8 @@ export default function GlobalMap() {
         <circle cx="631.5" cy="257.9" r="11" fill="none" stroke="#A72A2F" className="pulse-ring" />
         <circle cx="631.5" cy="257.9" r="11" fill="none" stroke="#A72A2F" strokeOpacity="0.55" className="pulse-ring delay-1" />
         <circle cx="631.5" cy="257.9" r="6" fill="#A72A2F" />
-        <text x="644" y="254" fontSize="13.5" fontWeight="700" fill="#181A1F" fontFamily="'Noto Sans JP',Inter,sans-serif">
-          東京本社
+        <text x="644" y="254" fontSize="13.5" fontWeight="700" fill="#181A1F" fontFamily={font}>
+          {t.map.tokyo}
         </text>
         <text x="644" y="268" fontSize="8.5" letterSpacing="1.5" fill="#626874" fontFamily="Inter,sans-serif" fontWeight="600">
           TOKYO · 35.68°N 139.69°E
@@ -158,16 +167,16 @@ export default function GlobalMap() {
       </g>
 
       {/* legend */}
-      <g fontFamily="'Noto Sans JP',Inter,sans-serif">
+      <g fontFamily={font}>
         <rect x="176" y="452" width="10" height="10" fill="#A72A2F" />
-        <text x="194" y="461" fontSize="10.5" fill="#626874">東京本社（統括・PMO）</text>
+        <text x="194" y="461" fontSize="10.5" fill="#626874">{t.map.legend1}</text>
         <rect x="176" y="472" width="10" height="10" fill="#173A70" />
-        <text x="194" y="481" fontSize="10.5" fill="#626874">プネ拠点（デリバリーセンター）</text>
+        <text x="194" y="481" fontSize="10.5" fill="#626874">{t.map.legend2}</text>
       </g>
 
       {/* panel tag */}
-      <text x="846" y="32" fontSize="9" letterSpacing="3" fill="#173A70" opacity="0.5" fontFamily="Inter,sans-serif" fontWeight="600" textAnchor="end">
-        JAPAN × INDIA NETWORK
+      <text x="846" y="32" fontSize="9" letterSpacing="3" fill="#173A70" opacity="0.5" fontFamily={fontEn} fontWeight="600" textAnchor="end">
+        {t.map.panelTag}
       </text>
     </svg>
   );

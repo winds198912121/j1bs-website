@@ -1,6 +1,12 @@
+"use client";
+
 import { Logo } from "./Logo";
+import { useI18n } from "@/lib/i18n";
 
 export default function Footer() {
+  const { t } = useI18n();
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-navy-deep">
       <div className="mx-auto max-w-content px-5 py-16 md:px-8 md:py-20">
@@ -8,34 +14,33 @@ export default function Footer() {
           <div>
             <Logo dark />
             <p className="mt-6 max-w-sm text-[13px] leading-7 text-white/55">
-              変革の時代を勝ち抜く、確かな経験とグローバルな視点を。
-              SAPコンサルティング・PMO・グローバルデリバリーで、企業変革を支援します。
+              {t.footer.description}
             </p>
           </div>
 
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-widest2 text-white/35">
-              Company
+              {t.footer.company}
             </p>
             <ul className="mt-5 space-y-3 text-[13px]">
               <li>
                 <a href="#message" className="text-white/70 transition-colors hover:text-white">
-                  代表挨拶
+                  {t.footer.navMessage}
                 </a>
               </li>
               <li>
                 <a href="#strengths" className="text-white/70 transition-colors hover:text-white">
-                  私たちの強み
+                  {t.footer.navStrengths}
                 </a>
               </li>
               <li>
                 <a href="#services" className="text-white/70 transition-colors hover:text-white">
-                  サービス内容
+                  {t.footer.navServices}
                 </a>
               </li>
               <li>
                 <a href="#profile" className="text-white/70 transition-colors hover:text-white">
-                  会社概要
+                  {t.footer.navProfile}
                 </a>
               </li>
             </ul>
@@ -43,7 +48,7 @@ export default function Footer() {
 
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-widest2 text-white/35">
-              Contact
+              {t.footer.contact}
             </p>
             <ul className="mt-5 space-y-3 text-[13px] text-white/70">
               <li>
@@ -59,12 +64,8 @@ export default function Footer() {
                   03-5050-6007
                 </a>
               </li>
-              <li className="leading-6">
-                〒163-1302
-                <br />
-                東京都新宿区西新宿6丁目5番1号
-                <br />
-                新宿アイランドタワー2階
+              <li className="whitespace-pre-line leading-6">
+                {t.footer.address}
               </li>
             </ul>
           </div>
@@ -72,14 +73,13 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
           <p className="text-[11px] tracking-wide text-white/40">
-            © {new Date().getFullYear()} J1 Business Solutions Co., Ltd. All
-            Rights Reserved.
+            {t.footer.copyright.replace("{year}", String(year))}
           </p>
           <a
             href="#top"
             className="group inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest2 text-white/40 transition-colors hover:text-white"
           >
-            Back to top
+            {t.footer.backToTop}
             <span className="transition-transform duration-300 group-hover:-translate-y-1">
               ↑
             </span>

@@ -1,52 +1,11 @@
-import Reveal from "./Reveal";
+"use client";
 
-const SERVICES = [
-  {
-    no: "01",
-    en: "IT Strategy & Business Transformation",
-    jp: "IT戦略・ビジネス変革",
-    items: [
-      "IT戦略・構想策定支援",
-      "業務改革（BPR）支援",
-      "ソリューション導入ベンダー評価・選定支援",
-      "RFP作成代行支援",
-    ],
-  },
-  {
-    no: "02",
-    en: "Enterprise Solutions — SAP S/4",
-    jp: "エンタープライズソリューション",
-    items: [
-      "SAP S/4導入コンサルティング支援",
-      "要件定義・業務フィット支援",
-      "Fit-to-Standard による導入アプローチ",
-      "グローバルロールアウト支援",
-    ],
-  },
-  {
-    no: "03",
-    en: "Project Management & PMO",
-    jp: "プロジェクトマネジメント",
-    items: [
-      "プロジェクトマネジメント支援（PMO）",
-      "チェンジマネジメント支援",
-      "IT組織変革・ITサービスプロセス運用改善",
-      "プロジェクト品質・ガバナンス管理",
-    ],
-  },
-  {
-    no: "04",
-    en: "Resource Solutions",
-    jp: "リソースソリューション",
-    items: [
-      "プロフェッショナル人材（コンサルタント・エンジニア）の紹介・派遣",
-      "海外拠点との連携による柔軟なリソースアサイン",
-      "オフショア・ニアショア体制構築支援",
-    ],
-  },
-];
+import Reveal from "./Reveal";
+import { useI18n } from "@/lib/i18n";
 
 export default function Services() {
+  const { t, locale } = useI18n();
+
   return (
     <section
       id="services"
@@ -60,23 +19,23 @@ export default function Services() {
         <Reveal className="mb-14 md:mb-20">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs font-semibold tracking-widest2 text-crimson">
-              04
+              {t.services.index}
             </span>
             <span className="h-px w-10 bg-crimson" />
             <span className="text-xs font-semibold uppercase tracking-widest2 text-white/50">
-              Our Services
+              {t.services.en}
             </span>
           </div>
           <h2 className="mt-5 text-3xl font-black leading-snug text-white md:text-[42px] md:leading-[1.25]">
-            サービス内容
+            {t.services.title}
           </h2>
           <p className="mt-5 max-w-2xl text-[15px] leading-8 text-white/70 md:text-base md:leading-9">
-            上流工程から運用まで、企業変革に必要なサービスを一貫して提供します。
+            {t.services.description}
           </p>
         </Reveal>
 
         <div className="grid gap-px border border-white/10 bg-white/10 md:grid-cols-2">
-          {SERVICES.map((s, i) => (
+          {t.services.items.map((s, i) => (
             <Reveal
               key={s.no}
               delay={(i % 2) * 120}
@@ -90,10 +49,10 @@ export default function Services() {
               </div>
 
               <h3 className="mt-8 text-lg font-bold leading-7 text-white md:text-[22px] md:leading-8">
-                {s.jp}
+                {locale === "ja" ? s.jp : s.en}
               </h3>
               <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-white/40">
-                {s.en}
+                {locale === "ja" ? s.en : s.jp}
               </p>
 
               <ul className="mt-7 space-y-3.5 border-t border-white/10 pt-7">

@@ -2,8 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import Reveal from "./Reveal";
+import { useI18n } from "@/lib/i18n";
 
 export default function Contact() {
+  const { t } = useI18n();
+  const c = t.contact;
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -15,19 +18,19 @@ export default function Contact() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const subject = encodeURIComponent(
-      `【お問い合わせ】${form.company || form.name}様より`,
+      `${c.form.mailSubject}${form.company || form.name}`,
     );
     const body = encodeURIComponent(
       [
         "━━━━━━━━━━━━━━━━━━━━━━",
-        "J1BS お問い合わせフォーム",
+        c.form.mailHeader,
         "━━━━━━━━━━━━━━━━━━━━━━",
         "",
-        `お名前：${form.name}`,
-        `会社名：${form.company}`,
-        `メールアドレス：${form.email}`,
+        `${c.form.mailName}：${form.name}`,
+        `${c.form.mailCompany}：${form.company}`,
+        `${c.form.mailEmail}：${form.email}`,
         "",
-        "【お問い合わせ内容】",
+        c.form.mailContent,
         form.message,
         "",
         "━━━━━━━━━━━━━━━━━━━━━━",
@@ -54,25 +57,24 @@ export default function Contact() {
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs font-semibold tracking-widest2 text-crimson">
-                08
+                {c.index}
               </span>
               <span className="h-px w-10 bg-crimson" />
               <span className="text-xs font-semibold uppercase tracking-widest2 text-white/50">
-                Contact
+                {c.en}
               </span>
             </div>
             <h2 className="mt-5 text-3xl font-black leading-snug text-white md:text-[42px] md:leading-[1.25]">
-              お問い合わせ
+              {c.title}
             </h2>
             <p className="mt-6 max-w-md text-[15px] leading-9 text-white/70">
-              SAPプロジェクト、グローバルデリバリー、SAP人材・技術支援について、お気軽にご相談ください。
-              初回のご相談は無料です。
+              {c.description}
             </p>
 
             <div className="mt-12 space-y-8">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-widest2 text-white/40">
-                  Email
+                  {c.emailLabel}
                 </p>
                 <a
                   href="mailto:info@j1bs.com"
@@ -83,7 +85,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-widest2 text-white/40">
-                  Phone
+                  {c.phoneLabel}
                 </p>
                 <a
                   href="tel:03-5050-6007"
@@ -94,12 +96,10 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-widest2 text-white/40">
-                  Address
+                  {c.addressLabel}
                 </p>
-                <p className="mt-2 text-[14px] leading-7 text-white/75">
-                  〒163-1302 東京都新宿区西新宿6丁目5番1号
-                  <br />
-                  新宿アイランドタワー2階
+                <p className="mt-2 whitespace-pre-line text-[14px] leading-7 text-white/75">
+                  {c.address}
                 </p>
               </div>
             </div>
@@ -114,11 +114,10 @@ export default function Contact() {
                     ✓
                   </span>
                   <h3 className="mt-8 text-xl font-black text-white">
-                    メールアプリが起動しました
+                    {c.form.sentTitle}
                   </h3>
                   <p className="mt-4 max-w-sm text-[14px] leading-7 text-white/60">
-                    送信内容をご確認の上、そのままお送りください。
-                    ご連絡を心よりお待ちしております。
+                    {c.form.sentBody}
                   </p>
                 </div>
               ) : (
@@ -129,7 +128,7 @@ export default function Contact() {
                         htmlFor="name"
                         className="mb-2 block text-[12px] font-bold text-white/70"
                       >
-                        お名前 <span className="text-crimson">*</span>
+                        {c.form.name} <span className="text-crimson">*</span>
                       </label>
                       <input
                         id="name"
@@ -138,7 +137,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, name: e.target.value })
                         }
-                        placeholder="山田 太郎"
+                        placeholder={c.form.namePh}
                         className={inputCls}
                       />
                     </div>
@@ -147,7 +146,7 @@ export default function Contact() {
                         htmlFor="company"
                         className="mb-2 block text-[12px] font-bold text-white/70"
                       >
-                        会社名
+                        {c.form.company}
                       </label>
                       <input
                         id="company"
@@ -155,7 +154,7 @@ export default function Contact() {
                         onChange={(e) =>
                           setForm({ ...form, company: e.target.value })
                         }
-                        placeholder="株式会社○○"
+                        placeholder={c.form.companyPh}
                         className={inputCls}
                       />
                     </div>
@@ -165,7 +164,7 @@ export default function Contact() {
                       htmlFor="email"
                       className="mb-2 block text-[12px] font-bold text-white/70"
                     >
-                      メールアドレス <span className="text-crimson">*</span>
+                      {c.form.email} <span className="text-crimson">*</span>
                     </label>
                     <input
                       id="email"
@@ -175,7 +174,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, email: e.target.value })
                       }
-                      placeholder="you@example.com"
+                      placeholder={c.form.emailPh}
                       className={inputCls}
                     />
                   </div>
@@ -184,7 +183,7 @@ export default function Contact() {
                       htmlFor="message"
                       className="mb-2 block text-[12px] font-bold text-white/70"
                     >
-                      お問い合わせ内容 <span className="text-crimson">*</span>
+                      {c.form.message} <span className="text-crimson">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -194,7 +193,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, message: e.target.value })
                       }
-                      placeholder="SAP導入支援、PMO、グローバルデリバリー、人材派遣など、ご相談内容をご記入ください。"
+                      placeholder={c.form.messagePh}
                       className={`${inputCls} resize-y`}
                     />
                   </div>
@@ -203,11 +202,10 @@ export default function Contact() {
                     className="group relative w-full overflow-hidden bg-crimson px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-[#8f2227]"
                   >
                     <span className="absolute left-0 top-0 h-full w-1.5 bg-white/25" />
-                    送信する（メールアプリが起動します）
+                    {c.form.submit}
                   </button>
                   <p className="text-center text-[11px] leading-5 text-white/40">
-                    フォームはお使いのメールアプリで info@j1bs.com 宛に送信されます。
-                    個人情報はお問い合わせ対応の目的のみに使用します。
+                    {c.form.privacy}
                   </p>
                 </form>
               )}

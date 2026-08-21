@@ -2,16 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-
-const NAV = [
-  { href: "#message", label: "代表挨拶" },
-  { href: "#strengths", label: "私たちの強み" },
-  { href: "#services", label: "サービス" },
-  { href: "#global", label: "グローバルデリバリー" },
-  { href: "#profile", label: "会社概要" },
-];
+import { useI18n } from "@/lib/i18n";
 
 export default function Header() {
+  const { t, locale, toggle } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -43,8 +37,8 @@ export default function Header() {
             <Logo />
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="メインナビゲーション">
-            {NAV.map((item) => (
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="メインナビゲーション">
+            {t.header.nav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -53,12 +47,20 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label="言語切り替え"
+              className="border border-line-gray px-3 py-2 font-mono text-[11px] font-bold tracking-widest text-navy transition-colors hover:border-crimson hover:text-crimson"
+            >
+              {t.header.switchTo}
+            </button>
             <a
               href="#contact"
               className="group relative inline-flex items-center gap-2 overflow-hidden bg-navy px-5 py-2.5 text-[13px] font-bold text-white transition-colors hover:bg-brand"
             >
               <span className="absolute left-0 top-0 h-full w-1 bg-crimson" />
-              お問い合わせ
+              {t.header.contact}
             </a>
           </nav>
 
@@ -99,7 +101,7 @@ export default function Header() {
           className="relative flex flex-1 flex-col justify-center gap-1 px-8"
           aria-label="モバイルナビゲーション"
         >
-          {NAV.map((item, i) => (
+          {t.header.nav.map((item, i) => (
             <a
               key={item.href}
               href={item.href}
@@ -115,16 +117,30 @@ export default function Header() {
               {item.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className={`mt-8 inline-flex w-fit items-center gap-2 bg-crimson px-8 py-4 text-sm font-bold text-white transition-all duration-300 ${
+          <div
+            className={`mt-8 flex items-center gap-3 transition-all duration-300 ${
               open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             }`}
-            style={{ transitionDelay: "440ms" }}
+            style={{ transitionDelay: "420ms" }}
           >
-            お問い合わせ
-          </a>
+            <button
+              type="button"
+              onClick={() => {
+                toggle();
+                setOpen(false);
+              }}
+              className="inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-crimson hover:text-crimson"
+            >
+              {locale === "ja" ? "English / EN" : "日本語 / JA"}
+            </button>
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 bg-crimson px-8 py-3.5 text-sm font-bold text-white transition-colors"
+            >
+              {t.header.contact}
+            </a>
+          </div>
         </nav>
         <div className="relative border-t border-white/10 px-8 py-6 text-xs text-white/50">
           J1ビジネスソリューションズ株式会社
