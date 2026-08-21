@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #171b2a;
+  --blue: #173a70;
+  --red: #a72a2f;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-white text-text-body antialiased;
+  font-feature-settings: "palt";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #173a70;
+  color: #fff;
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- hero network animation ---------- */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+.animate-dash {
+  stroke-dasharray: 4 8;
+  animation: dash-flow 6s linear infinite;
+}
+.animate-dash-slow {
+  stroke-dasharray: 3 10;
+  animation: dash-flow 11s linear infinite;
+}
+
+@keyframes node-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pulse 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.pulse-ring.delay-1 {
+  animation-delay: 0.9s;
+}
+.pulse-ring.delay-2 {
+  animation-delay: 1.7s;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.float-y {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-fade {
+  opacity: 0;
+  animation: fade-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ---------- misc ---------- */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(23, 58, 112, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 58, 112, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-dash,
+  .animate-dash-slow,
+  .pulse-ring,
+  .float-y,
+  .hero-fade {
+    animation: none;
+    opacity: 1;
+  }
+}
